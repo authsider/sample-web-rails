@@ -1,15 +1,83 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>AuthsiderRailsDemo</title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="shortcut icon" href="https://cdn.authsider.io/styleguide/logos/favicon.png">
+
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
 
-  <body>
+</head>
+<body>
+<header>
+    <div class="navbar navbar-dark bg-dark navbar-expand-lg">
+        <a href="#" class="navbar-brand">
+            <img alt="Authsider logo" src="https://cdn.authsider.io/styleguide/logos/badge.png" height="40"
+                 class="mr-3" />
+            Authsider sample
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+
+
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+
+                <% if user_signed_in? %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/profile">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <%= link_to('Logout', destroy_user_session_path, method: :delete, class: 'nav-link') %>
+                    </li>
+                <% else %>
+                    <li class="nav-item">
+                        <%= link_to('Login', user_authsider_omniauth_authorize_path, class: 'nav-link' )  %>
+                    </li>
+                <% end %>
+            </ul>
+        </div>
+    </div>
+</header>
+
+<% flash.each do |type, msg| %>
+  <% if type == "notice" %>
+    <div class="alert alert-success">
+  <% elsif type == "alert" %>
+    <div class="alert alert-danger">
+  <% else %>
+    <div class='alert alert-<%= "#{type}" %>'>
+  <% end %>
+  <a href="#" class="close" data-dismiss="alert">&#215;</a>
+  <ul>
+    <li>
+      <%= msg %>
+    </li>
+  </ul>
+<% end %>
+  </div>
+</div>
+
+<main role="main">
     <%= yield %>
-  </body>
+</main>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
 </html>
