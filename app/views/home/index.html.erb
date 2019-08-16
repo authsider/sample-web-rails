@@ -1,0 +1,12 @@
+<section class="jumbotron text-center">
+    <div class="container">
+        <% if user_signed_in? %>
+            <h1 class="jumbotron-heading">You are logged in.</h1>
+            <%= link_to('Logout', destroy_user_session_path, method: :delete, class: 'btn btn-danger my-2') %>
+
+        <% else %>
+            <h1 class="jumbotron-heading">You are not logged in.</h1>
+            <%= link_to('Login', user_authsider_omniauth_authorize_path, class: 'btn btn-primary my-2' )  %>
+        <% end %>
+    </div>
+</section>
